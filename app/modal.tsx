@@ -1,28 +1,18 @@
-import { View, Text } from 'react-native';
-
-import { useGetUsers } from '../queries/user';
+import { useRouter } from 'expo-router';
+import { View, Button } from 'react-native';
 
 export default function ModalScreen() {
-  const {
-    data: users,
-    isLoading: isUsersLoading,
-    isError: isUsersError,
-  } = useGetUsers();
-
-  if (isUsersLoading) {
-    return <Text>Loading...</Text>;
-  }
-
-  if (isUsersError) {
-    return <Text>Error fetching user</Text>;
-  }
+  const router = useRouter();
 
   return (
     <View className="flex-1 items-center justify-center">
-      <Text className="text-4xl font-bold">Modal</Text>
-      {users && users?.length > 0 && (
-        <Text className="text-2xl">{users[0].username}</Text>
-      )}
+      <Button
+        onPress={() => {
+          router.replace('/(auth)');
+        }}
+        title="Logout"
+        accessibilityLabel="Logout"
+      />
     </View>
   );
 }
